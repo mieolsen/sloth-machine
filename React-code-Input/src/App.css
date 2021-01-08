@@ -1,9 +1,27 @@
-.app {
-  text-align: center;
-  color: green;
+@import url("https://p.typekit.net/p.css?s=1&k=wch8hum&ht=tk&f=28578&a=32667437&app=typekit&e=css");
 
+@font-face {
+font-family:"brothers";
+src:url("https://use.typekit.net/af/8de6d2/00000000000000003b9adc6b/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff2"),url("https://use.typekit.net/af/8de6d2/00000000000000003b9adc6b/27/d?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("woff"),url("https://use.typekit.net/af/8de6d2/00000000000000003b9adc6b/27/a?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n4&v=3") format("opentype");
+font-display:auto;font-style:normal;font-weight:400;
+}
+
+
+
+
+
+.app {
+  font-family: brothers, sans-serif;
+  text-align: center;
+color:white;
+  background-image: url("./img/jungle2.jpg");
+  width: auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   height: 100vh;
 }
+
 
 .add-item{
   display: inline-flex;
@@ -12,12 +30,66 @@
   align-items: center;
   margin: 12px 0px;
 }
+.wrapper {
+  padding-top: 30px;
+}
+
+#wrongcode{
+  margin-top: 30px;
+  color: red;
+}
 
 .knap{
-  margin:  12px auto;
+  font-family: brothers, sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 42px;
+  color:white;
+  background-color: transparent;
+  animation: bounce-animation 1.5s ease 0s infinite;
+ }
+ knap:hover{
+   color: rgb(223, 201, 9);
+   text-shadow: 3px 3px 3px rgb(89, 10, 105);
+   transition: ease 0.3s;
+ }
 
-
+ /* Bounce animation on spin button */
+ @keyframes bounce-animation {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(20px); }
+  100% { transform: translateY(0); }
 }
+/* END */
+
+
+svg{
+  display:block;
+  height:200px;
+  width: 200px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+svg .sloth{
+stroke: white;
+stroke-width: 0.75px;
+fill: transparent;
+stroke-dasharray: 1500;
+animation: slothLine 4s linear infinite;
+}
+@keyframes slothLine{
+ to{
+   stroke-dashoffset: 1500;
+ }
+}
+
+#btnSubmit{
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 36px;
+}
+
 
 input 				{
   font-size:18px;
