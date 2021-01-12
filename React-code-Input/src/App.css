@@ -10,6 +10,8 @@ font-display:auto;font-style:normal;font-weight:400;
 
 
 
+
+
 .app {
   font-family: brothers, sans-serif;
   text-align: center;
@@ -47,6 +49,8 @@ color:white;
   color:white;
   background-color: transparent;
   animation: bounce-animation 1.5s ease 0s infinite;
+  margin-left: auto;
+  margin-right: auto;
  }
  knap:hover{
    color: rgb(223, 201, 9);
@@ -102,4 +106,8 @@ input 				{
 
 input:focus{
   outline: 1px solid lightgrey;
+}
+
+h4{
+  padding: 12px;
 }

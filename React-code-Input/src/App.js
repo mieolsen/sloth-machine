@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       currentItem: [],
 
-      value: 0
+      value: 9
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,20 +28,31 @@ class App extends Component {
 
   handleClick(event) {
     const btnSubmit = document.getElementById("btnSubmit");
+    const entercodebtn = document.getElementById("entercodebtn");
+    const codeinput = document.getElementById("codeinput");
+    const triesleft = document.getElementById("triesleft");
+    const info = document.getElementById("info");
     const inputcode2Ref = firebase.database().ref("inputcode2/SlothCode");
-      if(this.state.value<9){
+    let r = Math.random().toString(36).substring(7);
+
+      if(this.state.value>0){
         firebase.database().ref("Payment").push({Paid:true});
         console.log("Under 10")
-        this.setState({value: this.state.value+1});
+        this.setState({value: this.state.value-1});
         console.log(this.state.value)
 
+
       }
-      else if (this.state.value===9) {
+      else if (this.state.value===0) {
         console.log("SÅ ER VI PÅ 10 FORSØG")
-        this.setState({value: 0});
+        this.setState({value: 9});
         console.log(this.state.value)
         btnSubmit.style.display = "none"
-        inputcode2Ref.set(" ")
+        inputcode2Ref.set(r)
+        entercodebtn.style.display = "block"
+        codeinput.style.display = "block"
+        triesleft.style.display = "none"
+        info.style.display = "block"
 
       }
       else{
@@ -52,6 +63,10 @@ class App extends Component {
   handleSubmit(e) {
     const btnSubmit = document.getElementById("btnSubmit");
     const wrongcode = document.getElementById("wrongcode");
+    const entercodebtn = document.getElementById("entercodebtn");
+    const codeinput = document.getElementById("codeinput");
+    const info = document.getElementById("info");
+    const triesleft = document.getElementById("triesleft");
     const codesRef = firebase.database().ref();
     const inputcode1Ref = firebase.database().ref("inputcode1");
     inputcode1Ref.set({
@@ -61,9 +76,12 @@ class App extends Component {
         .then(function(snapshot) {
           if (snapshot.child("inputcode1/SlothCode").val() === snapshot.child("inputcode2/SlothCode").val()) {
             console.log("same!");
-             btnSubmit.style.display = "block";
-
+            btnSubmit.style.display = "block";
+            entercodebtn.style.display = "none"
+            codeinput.style.display = "none"
             wrongcode.style.display = "none"
+            info.style.display = "none"
+            triesleft.style.display = "block"
           } else {
 
             console.log("Code does not exist.")
@@ -178,12 +196,13 @@ class App extends Component {
                       <path className='sloth' d="M167.57,198.38c1.16.54,2.3,1.12,3.42,1.73.26.14.68-.1.55-.42a1.89,1.89,0,0,1,.56-2.09,1.62,1.62,0,0,1,1-.45,8,8,0,0,0,1.29,0c1-.19,1.09-1.32,1-2.17a6.26,6.26,0,0,0-.91-3,.37.37,0,0,0-.64.38,5.67,5.67,0,0,1,.81,3c0,.48,0,1-.62,1.06a10.68,10.68,0,0,0-1.26,0,2.67,2.67,0,0,0-2,3.46l.55-.43c-1.12-.61-2.27-1.18-3.42-1.73-.44-.2-.82.45-.38.65Z" transform="translate(-51.28 -63.86)"/>
                       <path className='sloth' d="M109.66,139a3.07,3.07,0,0,0,.71,2.5,1.47,1.47,0,0,0,2,0,5.49,5.49,0,0,0,.51-1,.82.82,0,0,1,.8-.32c.74,0,1.6.06,1.93-.76a4.73,4.73,0,0,0,.18-1.63c0-.62,0-1.25,0-1.87s-.78-.48-.75,0a22.92,22.92,0,0,1,0,2.75c0,.28-.05.61-.35.71a2.5,2.5,0,0,1-.86.05,1.55,1.55,0,0,0-1.6.79,2.65,2.65,0,0,1-.42.86.63.63,0,0,1-.65,0c-.81-.32-.77-1.4-.75-2.12a.38.38,0,0,0-.75,0Z" transform="translate(-51.28 -63.86)"/>
                   </svg></div>
-                  <h4>You have 10 tries to spin 3 identical slots and win one of our fabulous prizes.</h4>
+                  <h4 id="triesleft" style={{display:'none'}}>You have {this.state.value+1} tries to spin 3 identical slots and win one of our fabulous prizes.</h4>
+                  <h4 id="info">Enter code from our webshop to gain access to the Sloth Machine.</h4>
                 < div className='container'>
                   < section className='add-item'>
-                    < input placeholder="Enter code here" type="text" name="currentItem"  onChange={ this.handleChange } value={ this.state.currentItem } />
+                    < input id="codeinput" placeholder="Enter code here" type="text" name="currentItem"  onChange={ this.handleChange } value={ this.state.currentItem } />
                         < / section>
-                        < button className="knap" onClick={ this.handleSubmit } value={ this.state.currentItem }> Enter Code < /button>
+                        < button className="knap" onClick={ this.handleSubmit } value={ this.state.currentItem } id="entercodebtn"> Enter Code < /button>
                           <section className='display-item'>
                           <button variant="success" size="lg" className="knap" id="btnSubmit" onClick={ this.handleClick } style={{display:'none'}}>Start Machine</button>
                           <div id="wrongcode" style={{display:'none'}}><h1>Your code is wrong</h1></div>
